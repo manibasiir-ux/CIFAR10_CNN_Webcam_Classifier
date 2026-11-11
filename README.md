@@ -128,7 +128,7 @@ CIFAR10_CNN_Webcam_Classifier/
 ├── models/
 │   ├── final_model.keras  # fine-tuned model (2.1 MB)
 │   └── class_names.json
-├── assets/                # demo video and its thumbnail
+├── assets/                # demo video
 ├── requirements.txt
 └── LICENSE
 ```
