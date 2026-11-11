@@ -4,12 +4,6 @@
 
 https://github.com/user-attachments/assets/975c6f2a-dc7b-408e-9c2e-06919c781299
 
-
-
-[![Watch the 80-second webcam demo](assets/demo_thumbnail.jpg)](assets/cifar10_webcam_demo.mp4)
-
-*Click the image to watch the 80-second demo (no audio): phone-screen photos held up to a laptop webcam, recorded before the "unknown" option below was added.*
-
 ## Problem
 
 Classify an image into one of 10 everyday categories (airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck), then take the model out of the notebook and run it on live camera frames.
