@@ -77,8 +77,8 @@ for i in selected_indices:
 
 
 final_model.add(layers.GlobalAveragePooling2D())
-final_model.add(layers.Dense(128, activation='relu'))
-final_model.add(layers.Dense(10, activation='relu'))
+final_model.add(layers.Dense(64, activation='relu'))
+final_model.add(layers.Dense(64, activation='relu'))
 final_model.add(layers.Dense(10, activation='softmax'))
 
 # Build the model so the new Dense layers have weights before they are mapped
