@@ -2,6 +2,10 @@
 
 **A CNN trained from scratch on CIFAR-10, fine-tuned with a separate optimizer per layer, and run live on a webcam. 81.94% test accuracy on the 10,000-image CIFAR-10 test set.**
 
+https://github.com/user-attachments/assets/975c6f2a-dc7b-408e-9c2e-06919c781299
+
+
+
 [![Watch the 80-second webcam demo](assets/demo_thumbnail.jpg)](assets/cifar10_webcam_demo.mp4)
 
 *Click the image to watch the 80-second demo (no audio): phone-screen photos held up to a laptop webcam, recorded before the "unknown" option below was added.*
