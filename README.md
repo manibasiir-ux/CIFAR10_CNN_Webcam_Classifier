@@ -2,9 +2,9 @@
 
 **A CNN trained from scratch on CIFAR-10, fine-tuned with a separate optimizer per layer, and run live on a webcam. 81.94% test accuracy on the 10,000-image CIFAR-10 test set.**
 
-<!-- DEMO_VIDEO -->
+[![Watch the 80-second webcam demo](assets/demo_thumbnail.jpg)](assets/cifar10_webcam_demo.mp4)
 
-*Phone-screen photos held up to a laptop webcam (80 s, no audio). Recorded before the "unknown" option below was added. Can't see the player? [Open the video file](assets/cifar10_webcam_demo.mp4).*
+*Click the image to watch the 80-second demo (no audio): phone-screen photos held up to a laptop webcam, recorded before the "unknown" option below was added.*
 
 ## Problem
 
@@ -74,14 +74,14 @@ The test number is the honest one: those images were never used for training or 
 
 ### Added after the demo: an "unknown" answer
 
-After recording the demo I added a confidence threshold to `predict.py` and `webcam_demo.py`. If the top class is below 70% confidence, the model now answers `unknown (best guess cat 45%)` instead of guessing, shown in orange on the webcam.
+After recording the demo I added a confidence threshold to `webcam_demo.py`. If the top class is below 70% confidence, the model now answers `unknown (best guess cat 45%)` instead of guessing, shown in orange on the webcam.
 
 What it fixes and what it doesn't:
 
 - It catches the shaky guesses, like the airplane photo labelled "frog" at 60.2%.
 - It does **not** catch confident mistakes. My face was labelled "cat" at 97.4%, well above any sensible threshold. A model can be very sure and still wrong; fixing that needs a real "other" class or out-of-distribution detection (see future work).
 
-The 0.70 value is a starting point, not yet tuned. `src/evaluate.py` prints, for several thresholds, how many validation images still get an answer and how accurate those answers are, plus the test confusion matrix and per-class precision/recall.
+The 0.70 value is a starting point, not yet tuned on the validation set.
 
 ## Installation
 
@@ -100,14 +100,11 @@ pip install -r requirements.txt
 **Run the trained model (no training needed)**
 
 ```bash
-# Live webcam, press Q to quit
+# Live webcam, press Q to quit. Hold a photo (or your phone screen) up to the camera.
 python src/webcam_demo.py
-
-# Or classify image files
-python src/predict.py path/to/photo.jpg
 ```
 
-To change the "unknown" cutoff, edit `unknown_threshold` at the top of `webcam_demo.py` or `predict.py` (0 turns it off).
+To change the "unknown" cutoff, edit `unknown_threshold` at the top of `webcam_demo.py` (0 turns it off).
 
 **Train from scratch**
 
@@ -115,8 +112,9 @@ To change the "unknown" cutoff, edit `unknown_threshold` at the top of `webcam_d
 python src/prepare_data.py     # download CIFAR-10 into data/cifar10/{train,validation,test}
 python src/train.py            # stage 1 → models/my_cnn_First_model.keras
 python src/finetune.py         # stage 2 → models/final_model.keras
-python src/evaluate.py         # confusion matrix, per-class metrics, threshold table → reports/
 ```
+
+Both training scripts end by evaluating on the 10,000-image test set and printing the test loss and accuracy.
 
 Run the scripts from the repo folder: they read the data from `data/cifar10/` and the model from `models/`. If your data is somewhere else, change `Train_dir`, `Validation_dir` and `Test_dir` at the top of the script. On a CPU, expect training to take hours.
 
@@ -128,13 +126,11 @@ CIFAR10_CNN_Webcam_Classifier/
 │   ├── prepare_data.py    # CIFAR-10 → train/validation/test folders
 │   ├── train.py           # stage 1: base CNN
 │   ├── finetune.py        # stage 2: fine-tuning with per-layer optimizers
-│   ├── evaluate.py        # confusion matrix, per-class metrics, unknown-threshold table
-│   ├── predict.py         # classify image files (with "unknown")
 │   └── webcam_demo.py     # real-time webcam classification (with "unknown")
 ├── models/
 │   ├── final_model.keras  # fine-tuned model (2.1 MB)
 │   └── class_names.json
-├── assets/                # demo video
+├── assets/                # demo video and its thumbnail
 ├── requirements.txt
 └── LICENSE
 ```
@@ -142,7 +138,7 @@ CIFAR10_CNN_Webcam_Classifier/
 ## Limitations and future work
 
 - [x] Add an "unknown" option via a confidence threshold
-- [ ] Run `evaluate.py` and publish the confusion matrix and per-class precision/recall (cat vs dog is the usual suspect)
+- [ ] Add a confusion matrix and per-class precision/recall (cat vs dog is the usual suspect)
 - [ ] Tune the threshold on the validation set
 - [ ] Catch confident mistakes too: train an "other" class on non-CIFAR images, or add out-of-distribution detection
 - [ ] Compare against a pretrained backbone (e.g. MobileNetV3) to measure what training from scratch costs
