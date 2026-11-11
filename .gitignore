@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# IDE
+.idea/
+.vscode/
+
+# Data (download with src/prepare_data.py)
+data/
+
+# Training outputs (final_model.keras and class_names.json are tracked)
+models/*.keras
+!models/final_model.keras
+reports/
+
+# OS
+.DS_Store
+Thumbs.db
